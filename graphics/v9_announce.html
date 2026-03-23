@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lemonade C++ – Local LLM Server</title>
+    <style>
+        :root {
+            --bg-top: #ffe3b7;
+            --bg-bottom: #f4a261;
+            --card-bg: #fff7ec;
+            --card-bg-soft: #fff1df;
+            --text-main: #222222;
+            --text-subtle: #555555;
+            --pill-start: #f6a96b;
+            --pill-end: #f3722c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+            background: radial-gradient(circle at top, #ffe9c5 0, #ffe3b7 32%, #f4a261 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 14px;
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .frame {
+            width: 100%;
+            max-width: 520px;
+            background: var(--card-bg-soft);
+            border-radius: 28px;
+            padding: 20px 16px 18px;
+            box-shadow:
+                0 16px 40px rgba(0, 0, 0, 0.16),
+                0 0 0 1px rgba(255, 255, 255, 0.8);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .tagline {
+            font-size: 10px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text-subtle);
+            margin-bottom: 6px;
+        }
+
+        .title-row {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .logo {
+            font-size: 24px;
+        }
+
+        .title {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.06em;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--pill-start), var(--pill-end));
+            color: #fff;
+            font-size: 11px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        .subhead {
+            font-size: 12px;
+            color: var(--text-subtle);
+        }
+
+        .sections {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .stat-strip {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 8px 10px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+            font-size: 11px;
+            color: var(--text-subtle);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .stat-strong {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 10px 12px 11px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+        }
+
+        .card-heading {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .card-body {
+            font-size: 11px;
+            color: var(--text-subtle);
+            line-height: 1.45;
+        }
+
+        .bullet-list {
+            list-style: none;
+            padding: 0;
+            margin: 5px 0 0;
+        }
+
+        .bullet-list li {
+            font-size: 11px;
+            color: var(--text-subtle);
+            margin-bottom: 4px;
+            padding-left: 6px;
+            position: relative;
+        }
+
+        .bullet-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            bottom: 2px;
+            width: 2px;
+            background: rgba(243, 114, 44, 0.25);
+        }
+
+        .bullet-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .runtime-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 8px;
+        }
+
+        .runtime-highlight {
+            font-weight: 600;
+        }
+
+        .execution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .execution-item {
+            padding: 0;
+        }
+
+        .execution-name {
+            font-weight: 600;
+            color: var(--text-main);
+            font-size: 11px;
+            margin-bottom: 2px;
+        }
+
+        .execution-desc {
+            font-size: 10px;
+            color: var(--text-subtle);
+            line-height: 1.4;
+        }
+
+        @media (min-width: 480px) {
+            .runtime-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <article class="frame" aria-label="Lemonade C++ social graphic (compact)">
+        <header class="header">
+            <div class="tagline">Native C++ Local LLM Server</div>
+            <div class="title-row">
+                <span class="logo">🍋</span>
+                <h1 class="title">AMD Lemonade</h1>
+                <span class="pill">C++</span>
+            </div>
+            <p class="subhead">Desktop‑class installers. Instant startup. Zero Python.</p>
+        </header>
+
+        <section class="sections">
+            <div class="stat-strip">
+                <span><span class="stat-strong">60×</span> faster installs</span>
+                <span>· <span class="stat-strong">150×</span> smaller on disk</span>
+                <span>· <span class="stat-strong">5×</span> faster startup &amp; GGUF load</span>
+            </div>
+
+            <div class="runtime-grid">
+                <div class="card">
+                    <div class="card-heading">Native installers</div>
+                    <ul class="bullet-list">
+                        <li>Windows .msi, start menu integration.</li>
+                        <li>Ubuntu .deb, run ROCm in 3 steps.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-heading">Pure C++ runtime</div>
+                    <p class="card-body">
+                        <span class="runtime-highlight">Zero Python.</span> No Conda, no virtualenvs —
+                        just a fast, native binary.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-heading">Inference engines integrated</div>
+                <div class="execution-grid">
+                    <div class="execution-item">
+                        <div class="execution-name">Ryzen AI 1.6</div>
+                        <div class="execution-desc">Hybrid execution using NPU and GPU.</div>
+                    </div>
+                    <div class="execution-item">
+                        <div class="execution-name">FastFlowLM</div>
+                        <div class="execution-desc">Low‑power inference on NPU.</div>
+                    </div>
+                    <div class="execution-item">
+                        <div class="execution-name">llama.cpp</div>
+                        <div class="execution-desc">GPU inference with Vulkan and ROCm.</div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </article>
+</body>
+</html>

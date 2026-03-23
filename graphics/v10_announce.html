@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lemonade v10 Announcement Graphic</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-yellow: #ffe066;
+            --primary-yellow-dark: #ffd43b;
+            --accent-gold: #e6b800;
+            --text-main: #222;
+            --text-subtle: #555;
+            --bg-primary: #fffbe9;
+            --bg-secondary: #fff8dd;
+            --bg-tertiary: #fff5d1;
+            --card-bg: #ffffff;
+            --card-soft: #ffffff;
+            --border-soft: rgba(0, 0, 0, 0.06);
+            --shadow-soft: 0 12px 28px rgba(0, 0, 0, 0.05);
+            --app-card-radius: 12px;
+            --matrix-grid-width: calc(62px + (34px * 3) + (8px * 3));
+            --matrix-card-width: calc(var(--matrix-grid-width) + (6px * 2) + 2px);
+            --matrix-pair-width: calc((var(--matrix-card-width) * 2) + 10px);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 14px;
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .frame {
+            width: 100%;
+            max-width: 520px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.56));
+            border-radius: var(--app-card-radius);
+            padding: 14px 12px 12px;
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-soft);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 0;
+        }
+
+        .tagline {
+            font-size: 9px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #6f6753;
+            margin-bottom: 8px;
+        }
+
+        .title-row {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .logo {
+            font-size: 24px;
+            line-height: 1;
+            transform: translateY(1px);
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: #1d2229;
+        }
+
+        .title-version {
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            color: #5c5341;
+            padding: 2px 7px;
+            border-radius: var(--app-card-radius);
+            border: 1px solid #e5d9ad;
+            background: linear-gradient(180deg, #fffaf0 0%, #fff3cf 100%);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3px 9px;
+            border-radius: var(--app-card-radius);
+            background: linear-gradient(135deg, var(--primary-yellow), var(--primary-yellow-dark));
+            color: #423400;
+            border: 1px solid rgba(230, 184, 0, 0.45);
+            font-size: 11px;
+            font-weight: 700;
+            box-shadow: 0 3px 10px rgba(230, 184, 0, 0.28);
+        }
+
+        .sections {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+            align-items: center;
+        }
+
+        .subhead {
+            font-size: 12px;
+            color: #4d4f55;
+            font-weight: 500;
+        }
+
+        .card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.56));
+            border-radius: var(--app-card-radius);
+            border: 1px solid var(--border-soft);
+            padding: 10px 9px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .card-heading {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 9px;
+            letter-spacing: -0.01em;
+            color: #1f2328;
+        }
+
+        .card-body {
+            font-size: 11px;
+            color: var(--text-subtle);
+            line-height: 1.45;
+        }
+
+        .bullet-list {
+            list-style: none;
+            padding: 0;
+            margin: 5px 0 0;
+        }
+
+        .bullet-list li {
+            font-size: 11px;
+            color: var(--text-subtle);
+            margin-bottom: 4px;
+            padding-left: 6px;
+            position: relative;
+        }
+
+        .bullet-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            bottom: 2px;
+            width: 2px;
+            background: rgba(230, 184, 0, 0.35);
+        }
+
+        .bullet-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .matrix-pair {
+            display: grid;
+            grid-template-columns: repeat(2, var(--matrix-card-width));
+            gap: 10px;
+            width: var(--matrix-pair-width);
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .coverage-inline {
+            padding: 0;
+        }
+
+        .matrix-pair .card {
+            padding: 11px 6px;
+            width: var(--matrix-card-width);
+        }
+
+        .coverage-grid {
+            display: grid;
+            grid-template-columns: 62px repeat(3, 34px);
+            align-items: center;
+            column-gap: 8px;
+            row-gap: 8px;
+            width: max-content;
+            margin: 0 auto;
+        }
+
+        .coverage-col {
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #505965;
+            letter-spacing: 0.015em;
+        }
+
+        .support-platform {
+            font-size: 11px;
+            font-weight: 600;
+            color: #20262f;
+            white-space: nowrap;
+            padding-left: 8px;
+        }
+
+        .coverage-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 0;
+        }
+
+        .coverage-dot {
+            width: 8px;
+            height: 8px;
+            background: #31b866;
+            box-shadow: 0 0 0 2px rgba(49, 184, 102, 0.12), 0 0 4px rgba(49, 184, 102, 0.2);
+            clip-path: circle(50% at 50% 50%);
+            display: inline-block;
+        }
+
+        .platform-icon-row {
+            margin-top: 12px;
+            display: flex;
+            justify-content: center;
+            gap: 7px;
+            align-items: center;
+        }
+
+        .platform-strip {
+            margin-top: 6px;
+            display: flex;
+            justify-content: center;
+            gap: 7px;
+            align-items: center;
+        }
+
+        .platform-icon {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+            opacity: 0.9;
+            filter: saturate(0.94);
+            display: block;
+        }
+
+        .platform-icon.snap {
+            width: 19px;
+            height: 19px;
+        }
+
+        .platform-icon.fedora {
+            width: 20px;
+            height: 20px;
+        }
+
+        .platform-icon.debian {
+            width: 19px;
+            height: 19px;
+        }
+
+        .platform-icon.docker {
+            width: 24px;
+            height: 24px;
+        }
+
+        .platform-icon.apple {
+            width: 20px;
+            height: 20px;
+        }
+
+        .integration-badges {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 2px;
+        }
+
+        .badge {
+            padding: 3px 7px;
+            border-radius: var(--app-card-radius);
+            background: #f6f1cf;
+            border: 1px solid #eadb8c;
+            color: #3f3300;
+            font-weight: 700;
+            font-size: 11px;
+        }
+
+        .badge.highlight {
+            background: linear-gradient(135deg, #ffe88f, #ffd43b);
+            border-color: #e6b800;
+        }
+
+        .integration-list {
+            display: grid;
+            grid-template-columns: repeat(3, max-content);
+            column-gap: 22px;
+            row-gap: 10px;
+            width: max-content;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 5px;
+        }
+
+        .integrations-card {
+            width: var(--matrix-pair-width);
+            max-width: 100%;
+            margin: 0 auto;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .integrations-card .card-heading {
+            text-align: center;
+        }
+
+        .integration-item {
+            display: grid;
+            grid-template-columns: 20px 1fr;
+            gap: 7px;
+            align-items: center;
+            text-align: left;
+            background: transparent;
+            border: 0;
+            padding: 1px 0;
+        }
+
+        .integration-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: var(--app-card-radius);
+            object-fit: cover;
+            background: #fff7d8;
+        }
+
+        .integration-icon.emoji {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            background: transparent;
+        }
+
+        .integration-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            min-width: 0;
+            align-items: flex-start;
+        }
+
+        .integration-title {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-main);
+            line-height: 1.15;
+        }
+
+        .integration-desc {
+            font-size: 9px;
+            color: #69707a;
+            line-height: 1.2;
+        }
+
+        @media (max-width: 520px) {
+            .title {
+                font-size: 23px;
+            }
+
+            .subhead {
+                font-size: 11px;
+            }
+
+            .matrix-pair {
+                grid-template-columns: 1fr;
+                width: 100%;
+            }
+
+            .sections {
+                align-items: stretch;
+            }
+
+            .matrix-pair .card {
+                width: 100%;
+            }
+
+            .integrations-card {
+                width: 100%;
+                padding-left: 9px;
+                padding-right: 9px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <article class="frame" aria-label="Lemonade C++ social graphic (compact)">
+        <header class="header">
+            <div class="tagline">Release Announcement</div>
+            <div class="title-row">
+                <span class="logo">🍋</span>
+                <h1 class="title">Lemonade <span class="title-version">v10</span></h1>
+            </div>
+            <p class="subhead">Fully multimodal local AI across NPU, GPU, and CPU.</p>
+        </header>
+
+        <section class="sections">
+            <div class="matrix-pair">
+                <div class="card coverage-inline" aria-label="Modality support by input and output">
+                    <div class="coverage-grid" role="table">
+                        <div></div>
+                        <div class="coverage-col" role="columnheader">Text</div>
+                        <div class="coverage-col" role="columnheader">Image</div>
+                        <div class="coverage-col" role="columnheader">Audio</div>
+
+                        <div class="support-platform" role="rowheader">Input</div>
+                        <div class="coverage-cell" role="cell"><span class="coverage-dot"></span></div>
+                        <div class="coverage-cell" role="cell"><span class="coverage-dot"></span></div>
+                        <div class="coverage-cell" role="cell"><span class="coverage-dot"></span></div>
+
+                        <div class="support-platform" role="rowheader">Output</div>
+                        <div class="coverage-cell" role="cell"><span class="coverage-dot"></span></div>
+                        <div class="coverage-cell" role="cell"><span class="coverage-dot"></span></div>
+                        <div class="coverage-cell" role="cell"><span class="coverage-dot"></span></div>
+                    </div>
+                </div>
+
+                <div class="card coverage-inline" aria-label="Hardware support by operating system">
+                    <div class="coverage-grid" role="table">
+                        <div></div>
+                        <div class="coverage-col" role="columnheader">NPU</div>
+                        <div class="coverage-col" role="columnheader">GPU</div>
+                        <div class="coverage-col" role="columnheader">CPU</div>
+
+                        <div class="support-platform" role="rowheader">Linux</div>
+                        <div class="coverage-cell" role="cell"><span class="coverage-dot"></span></div>
+                        <div class="coverage-cell" role="cell"><span class="coverage-dot"></span></div>
+                        <div class="coverage-cell" role="cell"><span class="coverage-dot"></span></div>
+
+                        <div class="support-platform" role="rowheader">Windows</div>
+                        <div class="coverage-cell" role="cell"><span class="coverage-dot"></span></div>
+                        <div class="coverage-cell" role="cell"><span class="coverage-dot"></span></div>
+                        <div class="coverage-cell" role="cell"><span class="coverage-dot"></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card integrations-card">
+                <div class="card-heading">New Native Integrations</div>
+                <div class="integration-list">
+                    <div class="integration-item">
+                        <img class="integration-icon" src="https://raw.githubusercontent.com/lemonade-sdk/marketplace/refs/heads/main/apps/anythingllm/logo.png" alt="AnythingLLM logo">
+                        <div class="integration-meta">
+                            <div class="integration-title">AnythingLLM</div>
+                            <div class="integration-desc">Your local agent</div>
+                        </div>
+                    </div>
+                    <div class="integration-item">
+                        <img class="integration-icon" src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Claude_AI_symbol.svg" alt="Claude Code icon">
+                        <div class="integration-meta">
+                            <div class="integration-title">Claude Code</div>
+                            <div class="integration-desc">Code with local context</div>
+                        </div>
+                    </div>
+                    <div class="integration-item">
+                        <span class="integration-icon emoji" aria-hidden="true">🍋</span>
+                        <div class="integration-meta">
+                            <div class="integration-title">Control Center</div>
+                            <div class="integration-desc">Models and backends</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="platform-strip" aria-label="Supported platforms and packaging targets">
+                <img class="platform-icon ubuntu" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/UbuntuCoF.svg/960px-UbuntuCoF.svg.png" alt="Ubuntu">
+                <img class="platform-icon snap" src="https://www.svgrepo.com/show/374084/snapcraft.svg" alt="Snapcraft">
+                <img class="platform-icon arch" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Arch_Linux_%22Crystal%22_icon.svg/330px-Arch_Linux_%22Crystal%22_icon.svg.png" alt="Arch Linux">
+                <img class="platform-icon fedora" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Fedora_icon_%282021%29.svg/960px-Fedora_icon_%282021%29.svg.png" alt="Fedora">
+                <img class="platform-icon debian" src="https://www.clipartmax.com/png/middle/179-1793137_debian-logo-debian-logo-svg.png" alt="Debian">
+                <img class="platform-icon docker" src="file:///C:/Users/Jeremy/Downloads/Docker-Logos-1/docker-logos/PNG/docker-mark-ocean-blue.png" alt="Docker">
+                <img class="platform-icon windows" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Windows_logo_-_2012.png/500px-Windows_logo_-_2012.png" alt="Windows">
+                <img class="platform-icon apple" src="https://cdn-icons-png.flaticon.com/512/2/2235.png" alt="Apple">
+            </div>
+        </section>
+    </article>
+</body>
+</html>
