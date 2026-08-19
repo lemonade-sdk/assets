@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-label="Phoronix">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#161b1c"/>
+      <stop offset="1" stop-color="#0a0c0d"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.44" r="0.62">
+      <stop offset="0" stop-color="#348755" stop-opacity="0.30"/>
+      <stop offset="0.55" stop-color="#348755" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#348755" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect width="1200" height="675" fill="url(#glow)"/>
+  <g transform="translate(276.0,273.3) scale(1.90588)"
+     fill="none" stroke="#ffffff" stroke-width="8.0" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12.4,19.0 H38.6 A6.4,6.4 0 0 1 45,25.4 V36.6 A6.4,6.4 0 0 1 38.6,43.0 H12.4 A6.4,6.4 0 0 1 6,36.6 V25.4 A6.4,6.4 0 0 1 12.4,19.0 Z M6,19.0 V53.0"/>
+      <path d="M58,9.0 V43.0 M58,25.4 A6.4,6.4 0 0 1 64.4,19.0 H89.6 A6.4,6.4 0 0 1 96,25.4 V43.0"/>
+      <path d="M115.4,19.0 H141.6 A6.4,6.4 0 0 1 148,25.4 V36.6 A6.4,6.4 0 0 1 141.6,43.0 H115.4 A6.4,6.4 0 0 1 109,36.6 V25.4 A6.4,6.4 0 0 1 115.4,19.0 Z"/>
+      <path d="M159,19.0 V43.0 M159,25.4 A6.4,6.4 0 0 1 165.4,19.0 H172"/>
+      <path d="M189.4,19.0 H215.6 A6.4,6.4 0 0 1 222,25.4 V36.6 A6.4,6.4 0 0 1 215.6,43.0 H189.4 A6.4,6.4 0 0 1 183,36.6 V25.4 A6.4,6.4 0 0 1 189.4,19.0 Z"/>
+      <path d="M235,19.0 V43.0 M235,25.4 A6.4,6.4 0 0 1 241.4,19.0 H264.6 A6.4,6.4 0 0 1 271,25.4 V43.0"/>
+      <path d="M285.5,19 V43.0"/>
+      <path d="M298,19.0 L336,43.0 M336,19.0 L298,43.0"/>
+      <circle cx="285.5" cy="9.0" r="4.3" fill="#ffffff" stroke="none"/>
+  </g>
+  <rect y="661" width="1200" height="14" fill="#348755"/>
+</svg>
