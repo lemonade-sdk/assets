@@ -58,6 +58,8 @@ ENGINE_IMAGES = [
     EngineImage("ACE-Step", "https://cdn-avatars.huggingface.co/v1/production/uploads/6209bb6ede1c3ff3ec37620c/xk4TNYgu3UPz74tAgzTrA.jpeg"),
     # thinksound — intentionally omitted: the project has no logo of its own, and the
     # publisher org marks (FunAudioLLM/QwenAudio) are just Qwen-family branding.
+    # thenoise
+    EngineImage("TheNoise", "https://github.com/lemonade-sdk/thenoise/raw/main/thenoise/ui/logo.png"),
 ]
 
 
