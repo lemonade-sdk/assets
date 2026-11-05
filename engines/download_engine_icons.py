@@ -8,7 +8,7 @@ from io import BytesIO
 from pathlib import Path
 
 import requests
-from PIL import Image, ImageChops
+from PIL import Image, ImageChops, ImageDraw
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
@@ -26,6 +26,9 @@ class EngineImage:
     # Optional (left, top, right, bottom) fractions of the source image to keep,
     # for logos whose full lockup is unreadable at TARGET_HEIGHT.
     crop: tuple[float, float, float, float] | None = None
+    # "circle" keeps only the ellipse inscribed in the (cropped) image, for round
+    # emblems photographed on a background.
+    mask: str | None = None
 
 
 # One entry per engine in the lemonade "Supported Configurations" table
@@ -59,11 +62,10 @@ ENGINE_IMAGES = [
     EngineImage("TRELLIS", "https://github.com/microsoft/TRELLIS/raw/main/assets/logo.webp"),
     # acestep — no standalone project logo in the repo; Hugging Face org avatar
     EngineImage("ACE-Step", "https://cdn-avatars.huggingface.co/v1/production/uploads/6209bb6ede1c3ff3ec37620c/xk4TNYgu3UPz74tAgzTrA.jpeg"),
-    # halogen — official Halogen wordmark from the halogen-flash-server README
-    # (cropped to the wordmark; the medallion lockup is illegible at banner height)
-    EngineImage("Halogen", "https://raw.githubusercontent.com/peonist-ai/halogen-flash-server/main/docs/halogen.jpg", crop=(0.023, 0.551, 0.940, 0.895)),
-    # gufo — official owl mark from the gufo README
-    EngineImage("Gufo", "https://raw.githubusercontent.com/gufo-org/gufo/main/assets/gufo-logo.jpg"),
+    # halogen — the H medallion the Halogen site uses as its icon, cut out of its background
+    EngineImage("Halogen", "https://raw.githubusercontent.com/peonist-ai/halogen-flash-server/main/docs/assets/medallion.jpg", crop=(0.064, 0.064, 0.938, 0.938), mask="circle"),
+    # gufo — the rounded owl tile from the gufo.blog share image
+    EngineImage("Gufo", "https://gufo.blog/og.png", crop=(0.0667, 0.2778, 0.3, 0.7222)),
     # ds4 — official DwarfStar logo from antirez/ds4
     # (cropped to the mark; the GUI draws the engine name beside it)
     EngineImage("DwarfStar", "https://raw.githubusercontent.com/antirez/ds4/main/logo.svg", crop=(0.0, 0.0, 1.0, 0.775)),
@@ -118,6 +120,15 @@ def download_image(session: requests.Session, url: str) -> Image.Image:
     return image.convert("RGBA")
 
 
+def apply_circle_mask(image: Image.Image) -> Image.Image:
+    supersample = 4
+    mask = Image.new("L", (image.width * supersample, image.height * supersample), 0)
+    ImageDraw.Draw(mask).ellipse((0, 0, mask.width - 1, mask.height - 1), fill=255)
+    rgba = image.convert("RGBA")
+    rgba.putalpha(mask.resize(image.size, Image.Resampling.LANCZOS))
+    return rgba
+
+
 def crop_padding(image: Image.Image) -> Image.Image:
     rgba = image.convert("RGBA")
 
@@ -165,6 +176,8 @@ def main() -> int:
                     round(left * image.width), round(top * image.height),
                     round(right * image.width), round(bottom * image.height),
                 ))
+            if engine_image.mask == "circle":
+                image = apply_circle_mask(image)
             normalized = normalize_height(image)
         except Exception as error:
             failures.append((engine_image.alt, error))
