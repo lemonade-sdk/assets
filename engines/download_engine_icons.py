@@ -23,6 +23,9 @@ WHITE_TRIM_TOLERANCE = 16
 class EngineImage:
     alt: str
     src: str
+    # Optional (left, top, right, bottom) fractions of the source image to keep,
+    # for logos whose full lockup is unreadable at TARGET_HEIGHT.
+    crop: tuple[float, float, float, float] | None = None
 
 
 # One entry per engine in the lemonade "Supported Configurations" table
@@ -56,6 +59,16 @@ ENGINE_IMAGES = [
     EngineImage("TRELLIS", "https://github.com/microsoft/TRELLIS/raw/main/assets/logo.webp"),
     # acestep — no standalone project logo in the repo; Hugging Face org avatar
     EngineImage("ACE-Step", "https://cdn-avatars.huggingface.co/v1/production/uploads/6209bb6ede1c3ff3ec37620c/xk4TNYgu3UPz74tAgzTrA.jpeg"),
+    # halogen — official Halogen wordmark from the halogen-flash-server README
+    # (cropped to the wordmark; the medallion lockup is illegible at banner height)
+    EngineImage("Halogen", "https://raw.githubusercontent.com/peonist-ai/halogen-flash-server/main/docs/halogen.jpg", crop=(0.023, 0.551, 0.940, 0.895)),
+    # gufo — official owl mark from the gufo README
+    EngineImage("Gufo", "https://raw.githubusercontent.com/gufo-org/gufo/main/assets/gufo-logo.jpg"),
+    # ds4 — official DwarfStar logo from antirez/ds4
+    # (cropped to the mark; the GUI draws the engine name beside it)
+    EngineImage("DwarfStar", "https://raw.githubusercontent.com/antirez/ds4/main/logo.svg", crop=(0.0, 0.0, 1.0, 0.775)),
+    # thenoise — official TheNoise logo from the thenoise UI
+    EngineImage("TheNoise", "https://raw.githubusercontent.com/lemonade-sdk/thenoise/main/thenoise/ui/logo.png"),
     # thinksound — intentionally omitted: the project has no logo of its own, and the
     # publisher org marks (FunAudioLLM/QwenAudio) are just Qwen-family branding.
 ]
@@ -145,7 +158,14 @@ def main() -> int:
     failures = []
     for engine_image in ENGINE_IMAGES:
         try:
-            normalized = normalize_height(download_image(session, engine_image.src))
+            image = download_image(session, engine_image.src)
+            if engine_image.crop:
+                left, top, right, bottom = engine_image.crop
+                image = image.crop((
+                    round(left * image.width), round(top * image.height),
+                    round(right * image.width), round(bottom * image.height),
+                ))
+            normalized = normalize_height(image)
         except Exception as error:
             failures.append((engine_image.alt, error))
             print(f"{engine_image.alt}: FAILED ({error})")
